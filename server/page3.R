@@ -69,16 +69,7 @@ observeEvent(input$btn_go, {
               )
             })
     } else if (input$rb_model == "Decision tree") {
-       print("start reading")
-       credit_c <- read.csv("E:/Rproject/creditcard/creditcard.csv")
-       credit_c$Amount = scale(credit_c$Amount)
-       newData = credit_c[, -c(1)]
-       library(caTools)
-       set.seed(123)
-       data_sample = sample.split(newData$Class, SplitRatio=0.75)
-       train_data = subset(newData, data_sample== TRUE)
-       test_data = subset(newData, data_sample==FALSE)
-       print("stop reading")
+       
        rf_model <- rpart(Class ~ ., data = train_data, method = "class", minbucket = input$minbucket)
        print("model ready")
        prediction <- predict(rf_model, test_data, type = "class")
@@ -97,5 +88,24 @@ observeEvent(input$btn_go, {
           )
         )
       })
+    }
+  else if (input$rb_model == "Logistic regression") {
+    log_mod <- glm(Class ~ ., family = "binomial", data = train_data)
+    #summary(log_mod)
+    #conf_mat <- confusionMatrix(test_data$Class, as.numeric(predict(log_mod, test_data[,-c(31)], type = "response") > 0.5))
+    #print(conf_mat)
+    print("logistic")
+    output$ui_main <- renderUI( {
+      tagList(
+        fluidRow(
+           column(6,
+                  h3("Confusion Matrix")),
+                   
+          column(6,
+                 h3("log model plot"),
+                 renderPlot(summary(log_mod)))
+        )
+      )
+    })
     }
   })

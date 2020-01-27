@@ -7,19 +7,19 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
-library(shinyjs)
-library(readr)
-library(magrittr)
-library(dplyr)
-library(xgboost)
-library(DT)
-library(pROC)
-library(rpart)
-library(rpart.plot)
-library(caret)
-library(e1071)
-library(stringi)
+# library(shiny)
+# library(shinyjs)
+# library(readr)
+# library(magrittr)
+# library(dplyr)
+# library(xgboost)
+# library(DT)
+# library(pROC)
+# library(rpart)
+# library(rpart.plot)
+# library(caret)
+# library(e1071)
+# library(stringi)
 
 # Define UI for application that draws a histogram
 shinyUI(
